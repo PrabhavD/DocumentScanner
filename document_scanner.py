@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-
+#####################################
 #adjust as per ratio required
 widthImg = 640
 heightImg = 480
@@ -12,8 +12,7 @@ cap.set(3, widthImg)
 cap.set(4, heightImg)
 cap.set(10, 150)
 
-
-
+#Preprocessing Function
 def preProcessing(img):
     imgGray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     imgBlur = cv2.GaussianBlur(imgGray, (5,5), 1)
@@ -24,7 +23,7 @@ def preProcessing(img):
 
     return imgThres
 
-
+#Contours function
 def getContours(img):
     biggest = np.array([])
     maxArea = 0
@@ -41,7 +40,7 @@ def getContours(img):
     cv2.drawContours(imgContour, biggest, -1, (255, 0, 0), 20)  # show edges
     return biggest
 
-#Reorder Function
+#Reorder function
 def reorder(myPoints):
     myPoints = myPoints.reshape((4,2))
     myPointsNew = np.zeros((4, 1, 2),np.int32)
@@ -56,7 +55,7 @@ def reorder(myPoints):
     # print("New Points", myPointsNew)
     return myPointsNew
 
-#Warp Function
+#Warping function
 def getWarp(img, biggest):
     biggest = reorder(biggest)
     pts1 = np.float32(biggest)
@@ -70,7 +69,7 @@ def getWarp(img, biggest):
 
     return imgCropped
 
-#Stack Function
+#Stack function
 def stackImages(scale,imgArray):
     rows = len(imgArray)
     cols = len(imgArray[0])
@@ -102,7 +101,7 @@ def stackImages(scale,imgArray):
         ver = hor
     return ver
 
-
+#Body
 while True:
     success, img = cap.read()
     img = cv2.resize(img, (widthImg, heightImg))
