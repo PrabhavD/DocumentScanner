@@ -10,7 +10,7 @@ heightImg = 480
 cap = cv2.VideoCapture(0)
 cap.set(3, widthImg)
 cap.set(4, heightImg)
-cap.set(10, 150)
+cap.set(10, 150) #id: 10, represents brigthness => adjust as required based on setting
 
 #Preprocessing Function
 def preProcessing(img):
